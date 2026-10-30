@@ -32,7 +32,7 @@ function wmguru_parse_request() {
 	}
 
 	// Pretty mode.
-	$request = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- only parsed and validated below, never output.
+	$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	if ( false === strpos( $request, '/wmguru-cache/' ) ) {
 		return null;
 	}

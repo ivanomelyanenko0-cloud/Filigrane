@@ -95,6 +95,60 @@ function wmguru_position_picker( $name, $value ) {
 }
 
 /**
+ * Tags and attributes the settings rows are built from.
+ *
+ * @return array wp_kses() allowed-HTML list.
+ */
+function wmguru_field_allowed_html() {
+	$common = array(
+		'class'      => true,
+		'id'         => true,
+		'title'      => true,
+		'role'       => true,
+		'aria-live'  => true,
+		'aria-label' => true,
+		'hidden'     => true,
+	);
+
+	return array(
+		'div'    => $common,
+		'span'   => $common,
+		'p'      => $common,
+		'ul'     => $common,
+		'li'     => $common,
+		'code'   => $common,
+		'strong' => $common,
+		'br'     => array(),
+		'label'  => $common + array( 'for' => true ),
+		'img'    => $common + array(
+			'src' => true,
+			'alt' => true,
+		),
+		'input'  => $common + array(
+			'type'      => true,
+			'name'      => true,
+			'value'     => true,
+			'checked'   => true,
+			'disabled'  => true,
+			'min'       => true,
+			'max'       => true,
+			'step'      => true,
+			'maxlength' => true,
+		),
+		'select' => $common + array( 'name' => true ),
+		'option' => array(
+			'value'    => true,
+			'selected' => true,
+		),
+		'button' => $common + array(
+			'type'               => true,
+			'data-wmguru-action' => true,
+			'data-reload'        => true,
+		),
+	);
+}
+
+/**
  * One table row.
  *
  * @param string $label Label.
@@ -102,7 +156,7 @@ function wmguru_position_picker( $name, $value ) {
  * @param string $desc  Optional description.
  */
 function wmguru_row( $label, $html, $desc = '' ) {
-	echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- callers pass escaped markup.
+	echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . wp_kses( $html, wmguru_field_allowed_html() );
 	if ( '' !== $desc ) {
 		echo '<p class="description">' . esc_html( $desc ) . '</p>';
 	}

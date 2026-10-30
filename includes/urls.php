@@ -209,15 +209,13 @@ function wmguru_attachment_id_from_rel( $rel ) {
 		return $memo[ $rel ];
 	}
 
-	$uploads = wmguru_uploads();
-	$id      = (int) attachment_url_to_postid( $uploads['baseurl'] . '/' . wmguru_encode_rel( $rel ) );
+	$id = wmguru_attachment_id_from_main_file( $rel );
 
 	if ( ! $id ) {
 		$dir  = dirname( $rel );
 		$name = wp_basename( $rel );
 		if ( preg_match( '/^(.+)-\d+x\d+(\.[A-Za-z0-9]+)$/', $name, $m ) ) {
-			$main = ( '.' === $dir ? '' : $dir . '/' ) . $m[1] . $m[2];
-			$id   = (int) attachment_url_to_postid( $uploads['baseurl'] . '/' . wmguru_encode_rel( $main ) );
+			$id = wmguru_attachment_id_from_main_file( ( '.' === $dir ? '' : $dir . '/' ) . $m[1] . $m[2] );
 
 			$meta = $id ? wp_get_attachment_metadata( $id ) : false;
 			$is_size = false;
@@ -232,6 +230,25 @@ function wmguru_attachment_id_from_rel( $rel ) {
 	}
 
 	$memo[ $rel ] = $id;
+
+	return $id;
+}
+
+/**
+ * Attachment whose main file is $rel. Large uploads are stored as
+ * "name-scaled.ext", while their sub-sizes and the kept original are named
+ * after "name.ext", so that name is tried as well.
+ *
+ * @param string $rel Path relative to uploads.
+ * @return int Attachment id or 0.
+ */
+function wmguru_attachment_id_from_main_file( $rel ) {
+	$uploads = wmguru_uploads();
+	$id      = (int) attachment_url_to_postid( $uploads['baseurl'] . '/' . wmguru_encode_rel( $rel ) );
+
+	if ( ! $id && preg_match( '/^(.+)(\.[A-Za-z0-9]+)$/', $rel, $m ) && '-scaled' !== substr( $m[1], -7 ) ) {
+		$id = (int) attachment_url_to_postid( $uploads['baseurl'] . '/' . wmguru_encode_rel( $m[1] . '-scaled' . $m[2] ) );
+	}
 
 	return $id;
 }

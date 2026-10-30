@@ -79,6 +79,13 @@ Images output through WordPress image functions and post content are. Page build
 
 GD (with FreeType) or Imagick. Imagick keeps colour profiles and metadata of the source; GD drops them. AVIF needs Imagick with AVIF support, or PHP 8.1+ with GD AVIF support.
 
+== Screenshots ==
+
+1. Settings with the live preview. The preview is rendered by the same engine that creates the real copies.
+2. Watermarked images on the front end: a logo and a text layer. The originals in the Media Library stay untouched.
+3. Text layer: tokens, bundled fonts, size relative to each image with min/max limits, nine positions.
+4. The "Do not watermark this image" switch on every attachment.
+
 == Third-party resources ==
 
 Bundled fonts: Noto Sans and Noto Serif, © The Noto Project Authors, licensed under the SIL Open Font License 1.1 (see `fonts/OFL.txt`).
