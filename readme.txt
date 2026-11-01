@@ -1,6 +1,6 @@
 === Watermark Guru ===
 Contributors: lukystile
-Tags: watermark, image watermark, protect images, webp, copyright
+Tags: watermark, image watermark, photo watermark, protect images, copyright
 Requires at least: 6.3
 Tested up to: 7.1
 Stable tag: 1.0.0
@@ -8,11 +8,11 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Text or logo watermarks generated on the fly and cached. Your original images are never modified. Works with JPEG, PNG, WebP, AVIF, GIF.
+Add a text or logo watermark to your images without changing the originals. Watermarked copies are made on the fly. JPEG, PNG, WebP, AVIF, GIF.
 
 == Description ==
 
-**Watermark Guru** protects and brands your images the safe way: your original files are **never touched**. Watermarked copies are created the first time an image is requested, stored in a cache, and swapped into your pages at output time.
+**Watermark Guru** is an image watermark plugin for WordPress that adds your text or logo watermark to photos and protects your images the safe way: your original files are **never touched**. Watermarked copies are created the first time an image is requested, stored in a cache, and swapped into your pages at output time.
 
 That design removes the problems most watermark plugins have:
 
@@ -50,6 +50,10 @@ This plugin does not connect to any external service. No data leaves your site. 
 4. Set up your text and/or logo, check the live preview, then tick **Show watermarked images on the front end** and save.
 
 == Frequently Asked Questions ==
+
+= How do I add a watermark to images in WordPress? =
+
+Install Watermark Guru, go to **Media → Watermark Guru**, add your text and/or logo, check the live preview, then tick **Show watermarked images on the front end** and save. Existing and new images get the watermark on your pages; the files in your Media Library stay as uploaded.
 
 = Does it change my original files? =
 
