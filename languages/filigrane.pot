@@ -2,8 +2,8 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Watermark Guru 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/watermark-guru\n"
+"Project-Id-Version: Filigrane 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/filigrane\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,18 +12,18 @@ msgstr ""
 "POT-Creation-Date: 2026-09-21T01:40:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
-"X-Domain: watermark-guru\n"
+"X-Domain: filigrane\n"
 
 #. Plugin Name of the plugin
 #: includes/admin.php:12
 #: includes/admin.php:13
 #: includes/admin.php:283
 #: includes/site-health.php:40
-msgid "Watermark Guru"
+msgid "Filigrane"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://cognitolab.net/products/watermark-guru"
+msgid "https://cognitolab.net/products/filigrane"
 msgstr ""
 
 #. Description of the plugin
@@ -331,7 +331,7 @@ msgid "Need more?"
 msgstr ""
 
 #: includes/admin.php:431
-msgid "Multiple watermark profiles, unlimited layers and rules that pick a profile by post type, category or file type are available in Watermark Guru Pro, a separate optional add-on."
+msgid "Multiple watermark profiles, unlimited layers and rules that pick a profile by post type, category or file type are available in Filigrane Pro, a separate optional add-on."
 msgstr ""
 
 #: includes/admin.php:432
@@ -497,11 +497,11 @@ msgid "Full size"
 msgstr ""
 
 #: includes/site-health.php:16
-msgid "Watermark Guru image library"
+msgid "Filigrane image library"
 msgstr ""
 
 #: includes/site-health.php:20
-msgid "Watermark Guru delivery"
+msgid "Filigrane delivery"
 msgstr ""
 
 #: includes/site-health.php:64
@@ -514,7 +514,7 @@ msgid "Neither GD nor Imagick can process: %s. Ask your host to enable GD with F
 msgstr ""
 
 #: includes/site-health.php:73
-msgid "Watermark Guru has an image library"
+msgid "Filigrane has an image library"
 msgstr ""
 
 #: includes/site-health.php:75
@@ -522,7 +522,7 @@ msgid "JPEG, PNG and WebP can be watermarked."
 msgstr ""
 
 #: includes/site-health.php:86
-msgid "The Watermark Guru cache directory is not writable"
+msgid "The Filigrane cache directory is not writable"
 msgstr ""
 
 #: includes/site-health.php:88
@@ -534,7 +534,7 @@ msgid "Watermarked images use the fallback delivery mode"
 msgstr ""
 
 #: includes/site-health.php:98
-msgid "Your server does not pass missing image URLs to WordPress, so Watermark Guru uses signed query-string URLs instead. Everything works; the URLs are just less pretty."
+msgid "Your server does not pass missing image URLs to WordPress, so Filigrane uses signed query-string URLs instead. Everything works; the URLs are just less pretty."
 msgstr ""
 
 #: includes/site-health.php:104

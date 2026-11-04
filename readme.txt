@@ -1,4 +1,4 @@
-=== Watermark Guru ===
+=== Filigrane ===
 Contributors: lukystile
 Tags: watermark, image watermark, photo watermark, protect images, copyright
 Requires at least: 6.3
@@ -12,9 +12,9 @@ Add a text or logo watermark to your images without changing the originals. Wate
 
 == Description ==
 
-**Watermark Guru** is an image watermark plugin for WordPress that adds your text or logo watermark to photos and protects your images the safe way: your original files are **never touched**. Watermarked copies are created the first time an image is requested, stored in a cache, and swapped into your pages at output time.
+**Filigrane** is an image watermark plugin for WordPress that adds your text or logo watermark to photos. Your original files are **never touched**. Watermarked copies are created the first time an image is requested, stored in a cache, and swapped into your pages at output time.
 
-That design removes the problems most watermark plugins have:
+With this design:
 
 * **No "restore" needed.** Originals stay exactly as uploaded, so there is nothing to undo.
 * **No quality loss on your originals.** Only the copy is re-encoded, at a quality you choose.
@@ -36,7 +36,7 @@ That design removes the problems most watermark plugins have:
 * Site Health checks for the image library, cache folder and delivery.
 * Automatic fallback for hosts that do not pass missing image URLs to WordPress.
 
-Need several watermark profiles, unlimited layers, or rules that pick a watermark by post type, category or file type? They are in **[Watermark Guru Pro](https://cognitolab.net/products/watermark-guru)**, a separate, optional add-on. Everything described above works fully in the free plugin, with no restrictions or nag screens.
+Need several watermark profiles, unlimited layers, or rules that pick a watermark by post type, category or file type? They are in **[Filigrane Pro](https://cognitolab.net/products/filigrane)**, a separate, optional add-on. Everything described above works fully in the free plugin, with no restrictions or nag screens.
 
 == External services ==
 
@@ -44,16 +44,16 @@ This plugin does not connect to any external service. No data leaves your site. 
 
 == Installation ==
 
-1. Upload the `watermark-guru` folder to `/wp-content/plugins/`, or install it from the WordPress plugin directory.
+1. Upload the `filigrane` folder to `/wp-content/plugins/`, or install it from the WordPress plugin directory.
 2. Activate the plugin through the **Plugins** screen.
-3. Go to **Media → Watermark Guru**.
+3. Go to **Media → Filigrane**.
 4. Set up your text and/or logo, check the live preview, then tick **Show watermarked images on the front end** and save.
 
 == Frequently Asked Questions ==
 
 = How do I add a watermark to images in WordPress? =
 
-Install Watermark Guru, go to **Media → Watermark Guru**, add your text and/or logo, check the live preview, then tick **Show watermarked images on the front end** and save. Existing and new images get the watermark on your pages; the files in your Media Library stay as uploaded.
+Install Filigrane, go to **Media → Filigrane**, add your text and/or logo, check the live preview, then tick **Show watermarked images on the front end** and save. Existing and new images get the watermark on your pages; the files in your Media Library stay as uploaded.
 
 = Does it change my original files? =
 
@@ -65,7 +65,7 @@ Deactivating stops the URL swapping at once, so visitors see the originals. Unin
 
 = Can someone still get the original image? =
 
-Yes, if they know the original file URL. Watermark Guru replaces the URLs your site outputs; it does not block direct requests to files in `wp-content/uploads`.
+Yes, if they know the original file URL. Filigrane replaces the URLs your site outputs; it does not block direct requests to files in `wp-content/uploads`.
 
 = Are animated GIFs and WebP watermarked? =
 
@@ -73,7 +73,7 @@ Not yet. They are served unchanged.
 
 = It says direct file URLs do not work on my host. =
 
-Some hosts answer 404 for missing image files without asking WordPress. Watermark Guru detects this and switches to signed query-string URLs automatically. Everything still works.
+Some hosts answer 404 for missing image files without asking WordPress. Filigrane detects this and switches to signed query-string URLs automatically. Everything still works.
 
 = Will my page-builder images be watermarked? =
 

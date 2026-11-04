@@ -57,7 +57,7 @@ function wmguru_handle_image( $src, $dest, $profile, $context ) {
 	$mime = $context['mime'];
 
 	if ( wmguru_is_animated( $src, $mime ) ) {
-		return copy( $src, $dest ) ? true : new WP_Error( 'wmguru_copy_failed', __( 'Could not copy the animated image.', 'watermark-guru' ) );
+		return copy( $src, $dest ) ? true : new WP_Error( 'wmguru_copy_failed', __( 'Could not copy the animated image.', 'filigrane' ) );
 	}
 
 	return wmguru_render_image( $src, $dest, $profile, $mime );

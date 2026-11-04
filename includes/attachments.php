@@ -78,9 +78,9 @@ function wmguru_attachment_fields( $fields, $post ) {
 	$checked = get_post_meta( $post->ID, '_wmguru_exclude', true ) ? ' checked="checked"' : '';
 
 	$fields['wmguru_exclude'] = array(
-		'label' => __( 'Watermark', 'watermark-guru' ),
+		'label' => __( 'Watermark', 'filigrane' ),
 		'input' => 'html',
-		'html'  => '<label><input type="checkbox" name="attachments[' . (int) $post->ID . '][wmguru_exclude]" value="1"' . $checked . ' /> ' . esc_html__( 'Do not watermark this image', 'watermark-guru' ) . '</label>',
+		'html'  => '<label><input type="checkbox" name="attachments[' . (int) $post->ID . '][wmguru_exclude]" value="1"' . $checked . ' /> ' . esc_html__( 'Do not watermark this image', 'filigrane' ) . '</label>',
 	);
 
 	return $fields;

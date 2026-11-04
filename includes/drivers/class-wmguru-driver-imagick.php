@@ -36,7 +36,7 @@ class WMGuru_Driver_Imagick {
 			$pixels = $probe->getImageWidth() * $probe->getImageHeight();
 			$probe->clear();
 			if ( $pixels > wmguru_max_pixels() ) {
-				return new WP_Error( 'wmguru_too_large', __( 'The image is too large to process.', 'watermark-guru' ) );
+				return new WP_Error( 'wmguru_too_large', __( 'The image is too large to process.', 'filigrane' ) );
 			}
 
 			$image = new Imagick();
@@ -184,7 +184,7 @@ class WMGuru_Driver_Imagick {
 			'image/avif' => 'avif',
 		);
 		if ( ! isset( $formats[ $mime ] ) ) {
-			return new WP_Error( 'wmguru_imagick_save', __( 'Unsupported output type.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_imagick_save', __( 'Unsupported output type.', 'filigrane' ) );
 		}
 
 		try {
@@ -207,7 +207,7 @@ class WMGuru_Driver_Imagick {
 		}
 
 		if ( ! file_exists( $dest ) || 0 === filesize( $dest ) ) {
-			return new WP_Error( 'wmguru_imagick_save', __( 'Imagick could not write the watermarked image.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_imagick_save', __( 'Imagick could not write the watermarked image.', 'filigrane' ) );
 		}
 
 		return true;

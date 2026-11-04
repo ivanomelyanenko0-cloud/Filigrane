@@ -32,21 +32,21 @@ class WMGuru_Driver_GD {
 	public function open( $path ) {
 		$contents = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( false === $contents ) {
-			return new WP_Error( 'wmguru_gd_read', __( 'Could not read the image file.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_gd_read', __( 'Could not read the image file.', 'filigrane' ) );
 		}
 
 		$info = getimagesizefromstring( $contents );
 		if ( ! $info ) {
-			return new WP_Error( 'wmguru_gd_read', __( 'Not a readable image.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_gd_read', __( 'Not a readable image.', 'filigrane' ) );
 		}
 		if ( $info[0] * $info[1] > wmguru_max_pixels() ) {
-			return new WP_Error( 'wmguru_too_large', __( 'The image is too large to process.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_too_large', __( 'The image is too large to process.', 'filigrane' ) );
 		}
 
 		$im = imagecreatefromstring( $contents );
 		unset( $contents );
 		if ( ! $im ) {
-			return new WP_Error( 'wmguru_gd_read', __( 'GD could not decode the image.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_gd_read', __( 'GD could not decode the image.', 'filigrane' ) );
 		}
 
 		if ( ! imageistruecolor( $im ) ) {
@@ -122,7 +122,7 @@ class WMGuru_Driver_GD {
 		$angle = -$rotation; // GD rotates counter-clockwise.
 		$box   = imagettfbbox( $pt, $angle, $font, $text );
 		if ( ! $box ) {
-			return new WP_Error( 'wmguru_gd_text', __( 'GD could not measure the text (font unreadable?).', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_gd_text', __( 'GD could not measure the text (font unreadable?).', 'filigrane' ) );
 		}
 
 		$xs = array( $box[0], $box[2], $box[4], $box[6] );
@@ -154,7 +154,7 @@ class WMGuru_Driver_GD {
 		$contents = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$src      = false === $contents ? false : imagecreatefromstring( $contents );
 		if ( ! $src ) {
-			return new WP_Error( 'wmguru_gd_layer', __( 'GD could not read the watermark image.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_gd_layer', __( 'GD could not read the watermark image.', 'filigrane' ) );
 		}
 
 		if ( ! imageistruecolor( $src ) ) {
@@ -176,7 +176,7 @@ class WMGuru_Driver_GD {
 			$rotated = imagerotate( $layer, -$rotation, imagecolorallocatealpha( $layer, 0, 0, 0, 127 ) );
 			imagedestroy( $layer );
 			if ( ! $rotated ) {
-				return new WP_Error( 'wmguru_gd_layer', __( 'GD could not rotate the watermark image.', 'watermark-guru' ) );
+				return new WP_Error( 'wmguru_gd_layer', __( 'GD could not rotate the watermark image.', 'filigrane' ) );
 			}
 			$layer = $rotated;
 			imagealphablending( $layer, false );
@@ -280,7 +280,7 @@ class WMGuru_Driver_GD {
 		}
 
 		if ( ! $ok || ! file_exists( $dest ) || 0 === filesize( $dest ) ) {
-			return new WP_Error( 'wmguru_gd_save', __( 'GD could not write the watermarked image.', 'watermark-guru' ) );
+			return new WP_Error( 'wmguru_gd_save', __( 'GD could not write the watermarked image.', 'filigrane' ) );
 		}
 
 		return true;

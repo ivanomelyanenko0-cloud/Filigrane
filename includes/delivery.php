@@ -184,7 +184,7 @@ function wmguru_serve( $key, $rel ) {
 function wmguru_generate( $src, $dest, $profile, $mime, $attachment_id, $rel ) {
 	$handler = wmguru_get_file_handler( $mime );
 	if ( ! $handler || ! wmguru_ensure_cache_dir() || ! wp_mkdir_p( dirname( $dest ) ) ) {
-		return new WP_Error( 'wmguru_cache_unwritable', __( 'The cache directory is not writable.', 'watermark-guru' ) );
+		return new WP_Error( 'wmguru_cache_unwritable', __( 'The cache directory is not writable.', 'filigrane' ) );
 	}
 
 	$tmp    = $dest . '.' . wp_generate_password( 8, false ) . '.tmp';
@@ -209,7 +209,7 @@ function wmguru_generate( $src, $dest, $profile, $mime, $attachment_id, $rel ) {
 	chmod( $tmp, defined( 'FS_CHMOD_FILE' ) ? FS_CHMOD_FILE : 0644 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.chmod_chmod, WordPress.WP.AlternativeFunctions.file_system_operations_chmod
 	if ( ! rename( $tmp, $dest ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
 		wp_delete_file( $tmp );
-		return new WP_Error( 'wmguru_rename_failed', __( 'Could not move the generated file into the cache.', 'watermark-guru' ) );
+		return new WP_Error( 'wmguru_rename_failed', __( 'Could not move the generated file into the cache.', 'filigrane' ) );
 	}
 
 	return true;
@@ -288,7 +288,7 @@ function wmguru_run_delivery_test() {
 	);
 
 	if ( ! wmguru_ensure_cache_dir() ) {
-		$status['error'] = __( 'The cache directory could not be created or is not writable.', 'watermark-guru' );
+		$status['error'] = __( 'The cache directory could not be created or is not writable.', 'filigrane' );
 	} elseif ( $uploads ) {
 		$response = wp_remote_get(
 			$uploads['baseurl'] . '/wmguru-cache/selftest-00000000/probe.png',
@@ -306,7 +306,7 @@ function wmguru_run_delivery_test() {
 			$status['pretty'] = $ok;
 			if ( ! $ok ) {
 				/* translators: %d: HTTP status code */
-				$status['error'] = sprintf( __( 'Unexpected response (HTTP %d) for a not-yet-cached image URL.', 'watermark-guru' ), (int) wp_remote_retrieve_response_code( $response ) );
+				$status['error'] = sprintf( __( 'Unexpected response (HTTP %d) for a not-yet-cached image URL.', 'filigrane' ), (int) wp_remote_retrieve_response_code( $response ) );
 			}
 		}
 	}

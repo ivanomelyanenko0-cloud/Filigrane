@@ -1,6 +1,6 @@
 <?php
 /**
- * Free extension API consumed by Watermark Guru Pro.
+ * Free extension API consumed by Filigrane Pro.
  *
  * wmguru_register_pro_slot() is a validated wrapper over add_filter()/add_action()
  * against a documented registry of extension points below. It never carries
@@ -46,7 +46,7 @@ function wmguru_get_extension_points() {
 }
 
 /**
- * Register a callback against a documented Watermark Guru extension point.
+ * Register a callback against a documented Filigrane extension point.
  *
  * @param string   $hook          One of the keys returned by wmguru_get_extension_points().
  * @param callable $callback      Callback to attach.

@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       Watermark Guru
- * Plugin URI:        https://cognitolab.net/products/watermark-guru
+ * Plugin Name:       Filigrane
+ * Plugin URI:        https://cognitolab.net/products/filigrane
  * Description:       Non-destructive image watermarks generated on the fly and cached. Your original files are never modified.
  * Version:           1.0.0
  * Requires at least: 6.3
@@ -10,7 +10,7 @@
  * Author URI:        https://cognitolab.net
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       watermark-guru
+ * Text Domain:       filigrane
  * Domain Path:       /languages
  */
 

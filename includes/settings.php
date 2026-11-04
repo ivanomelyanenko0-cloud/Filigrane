@@ -20,15 +20,15 @@ define( 'WMGURU_OPTION', 'wmguru_settings' );
  */
 function wmguru_positions() {
 	return array(
-		'tl' => __( 'Top left', 'watermark-guru' ),
-		'tc' => __( 'Top center', 'watermark-guru' ),
-		'tr' => __( 'Top right', 'watermark-guru' ),
-		'ml' => __( 'Middle left', 'watermark-guru' ),
-		'mc' => __( 'Center', 'watermark-guru' ),
-		'mr' => __( 'Middle right', 'watermark-guru' ),
-		'bl' => __( 'Bottom left', 'watermark-guru' ),
-		'bc' => __( 'Bottom center', 'watermark-guru' ),
-		'br' => __( 'Bottom right', 'watermark-guru' ),
+		'tl' => __( 'Top left', 'filigrane' ),
+		'tc' => __( 'Top center', 'filigrane' ),
+		'tr' => __( 'Top right', 'filigrane' ),
+		'ml' => __( 'Middle left', 'filigrane' ),
+		'mc' => __( 'Center', 'filigrane' ),
+		'mr' => __( 'Middle right', 'filigrane' ),
+		'bl' => __( 'Bottom left', 'filigrane' ),
+		'bc' => __( 'Bottom center', 'filigrane' ),
+		'br' => __( 'Bottom right', 'filigrane' ),
 	);
 }
 
@@ -142,7 +142,7 @@ function wmguru_available_sizes() {
 	foreach ( get_intermediate_image_sizes() as $name ) {
 		$sizes[ $name ] = ucwords( str_replace( array( '_', '-' ), ' ', $name ) );
 	}
-	$sizes['full'] = __( 'Full size', 'watermark-guru' );
+	$sizes['full'] = __( 'Full size', 'filigrane' );
 
 	return $sizes;
 }

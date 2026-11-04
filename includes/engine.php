@@ -161,7 +161,7 @@ function wmguru_layout_position( $position, $canvas_w, $canvas_h, $layer_w, $lay
 function wmguru_render_image( $src, $dest, $profile, $mime, $overrides = array() ) {
 	$layers = wmguru_effective_layers( $profile );
 	if ( ! $layers ) {
-		return new WP_Error( 'wmguru_no_layers', __( 'The profile has no layer to draw.', 'watermark-guru' ) );
+		return new WP_Error( 'wmguru_no_layers', __( 'The profile has no layer to draw.', 'filigrane' ) );
 	}
 
 	wp_raise_memory_limit( 'image' );
@@ -169,7 +169,7 @@ function wmguru_render_image( $src, $dest, $profile, $mime, $overrides = array()
 	$settings = array_merge( wmguru_get_settings(), $overrides );
 	$drivers  = wmguru_driver_candidates( $mime, $settings['driver'] );
 	if ( ! $drivers ) {
-		return new WP_Error( 'wmguru_no_driver', __( 'No image library supports this file type.', 'watermark-guru' ) );
+		return new WP_Error( 'wmguru_no_driver', __( 'No image library supports this file type.', 'filigrane' ) );
 	}
 
 	$error = null;
@@ -231,7 +231,7 @@ function wmguru_render_with_driver( $name, $src, $dest, $layers, $mime, $quality
 
 	if ( ! $drawn ) {
 		$driver->close();
-		return new WP_Error( 'wmguru_nothing_drawn', __( 'No layer could be drawn.', 'watermark-guru' ) );
+		return new WP_Error( 'wmguru_nothing_drawn', __( 'No layer could be drawn.', 'filigrane' ) );
 	}
 
 	$saved = $driver->save( $dest, $mime, $quality );
@@ -255,6 +255,6 @@ function wmguru_log_error( $message ) {
 	update_option( 'wmguru_error_log', array_slice( $log, -15 ), false );
 
 	if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-		error_log( '[Watermark Guru] ' . $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		error_log( '[Filigrane] ' . $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 	}
 }

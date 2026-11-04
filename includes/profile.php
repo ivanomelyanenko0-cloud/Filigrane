@@ -21,7 +21,7 @@ function wmguru_default_profile() {
 
 	return array(
 		'id'     => 'default',
-		'label'  => __( 'Default', 'watermark-guru' ),
+		'label'  => __( 'Default', 'filigrane' ),
 		'layers' => $settings['layers'],
 	);
 }
