@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Filigrane
+ * Plugin Name:       Filigrane – Text & Logo Image Watermark, Originals Untouched
  * Plugin URI:        https://cognitolab.net/products/filigrane
  * Description:       Non-destructive image watermarks generated on the fly and cached. Your original files are never modified.
  * Version:           1.0.0

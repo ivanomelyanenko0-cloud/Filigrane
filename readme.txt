@@ -1,4 +1,4 @@
-=== Filigrane ===
+=== Filigrane – Text & Logo Image Watermark, Originals Untouched ===
 Contributors: lukystile
 Tags: watermark, image watermark, photo watermark, protect images, copyright
 Requires at least: 6.3
