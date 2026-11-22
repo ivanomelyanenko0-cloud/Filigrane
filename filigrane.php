@@ -3,7 +3,7 @@
  * Plugin Name:       Filigrane – Text & Logo Image Watermark, Originals Untouched
  * Plugin URI:        https://cognitolab.net/products/filigrane
  * Description:       Non-destructive image watermarks generated on the fly and cached. Your original files are never modified.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            CognitoLab
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WMGURU_VERSION', '1.0.0' );
+define( 'WMGURU_VERSION', '1.1.0' );
 // Bump when the rendering pipeline changes output: it is part of every cache key.
 define( 'WMGURU_ENGINE_VERSION', 1 );
 define( 'WMGURU_PLUGIN_FILE', __FILE__ );
@@ -35,6 +35,8 @@ require_once WMGURU_PLUGIN_DIR . 'includes/engine.php';
 require_once WMGURU_PLUGIN_DIR . 'includes/attachments.php';
 require_once WMGURU_PLUGIN_DIR . 'includes/rewriter.php';
 require_once WMGURU_PLUGIN_DIR . 'includes/delivery.php';
+require_once WMGURU_PLUGIN_DIR . 'includes/compat.php';
+require_once WMGURU_PLUGIN_DIR . 'includes/cli.php';
 require_once WMGURU_PLUGIN_DIR . 'includes/site-health.php';
 require_once WMGURU_PLUGIN_DIR . 'includes/admin.php';
 

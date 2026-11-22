@@ -316,3 +316,73 @@ function wmguru_run_delivery_test() {
 	return $status;
 }
 add_action( 'wmguru_run_delivery_test', 'wmguru_run_delivery_test' );
+
+/**
+ * The file asked for by a protected-originals request: server rules (added
+ * by Filigrane Pro's protection) send direct requests for images in uploads
+ * to index.php?wmguru_protect=<path relative to uploads>.
+ *
+ * @return array|null array( rel, absolute path ) or null when the request isn't one.
+ */
+function wmguru_protected_request_file() {
+	if ( ! isset( $_GET['wmguru_protect'] ) || ! is_string( $_GET['wmguru_protect'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- public image request.
+		return null;
+	}
+	$rel = ltrim( wp_unslash( $_GET['wmguru_protect'] ), '/' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- a file path, checked below against the uploads folder.
+	if ( ! wmguru_is_safe_rel( $rel ) || ! preg_match( '/\.(?:jpe?g|png|gif|webp|avif)$/i', $rel ) ) {
+		wmguru_fail( 404 );
+	}
+
+	$uploads = wmguru_uploads();
+	$base    = $uploads ? realpath( $uploads['basedir'] ) : false;
+	$path    = $base ? realpath( $uploads['basedir'] . '/' . $rel ) : false;
+	if ( ! $path || 0 !== strpos( $path, $base . DIRECTORY_SEPARATOR ) || ! is_file( $path ) ) {
+		wmguru_fail( 404 );
+	}
+
+	return array( $rel, $path );
+}
+
+/**
+ * Stream an original upload. The answer depends on who asks (editors and
+ * allowed search bots get originals, visitors a watermark), so shared caches
+ * must not keep it.
+ *
+ * @param string $path Absolute path.
+ */
+function wmguru_send_original( $path ) {
+	$type  = wp_check_filetype( $path );
+	$mtime = (int) filemtime( $path );
+	$size  = (int) filesize( $path );
+
+	while ( ob_get_level() ) {
+		ob_end_clean();
+	}
+
+	status_header( 200 );
+	header( 'Content-Type: ' . ( $type['type'] ? $type['type'] : 'application/octet-stream' ) );
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'Cache-Control: private, max-age=600' );
+	header( 'Vary: Cookie, User-Agent, Referer' );
+	header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s', $mtime ) . ' GMT' );
+	header( 'Content-Length: ' . $size );
+	$method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : 'GET';
+	if ( 'HEAD' !== $method ) {
+		readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+	}
+	exit;
+}
+
+/**
+ * Keeps images working when protection rules are still in the server
+ * config but nothing handles them any more (the add-on that wrote them was
+ * deactivated): such a request gets the original file, as it would without
+ * the rules. When protection is active it has already answered the request.
+ */
+function wmguru_serve_protected_fallback() {
+	$file = wmguru_protected_request_file();
+	if ( $file ) {
+		wmguru_send_original( $file[1] );
+	}
+}
+add_action( 'init', 'wmguru_serve_protected_fallback', 2 );

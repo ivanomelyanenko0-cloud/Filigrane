@@ -86,6 +86,8 @@ function wmguru_default_settings() {
 		'quality'               => 88,
 		'driver'                => 'auto',
 		'delivery'              => 'auto',
+		'buffer'                => false,
+		'social'                => 'watermarked',
 		'remove_data_uninstall' => false,
 	);
 }
@@ -226,6 +228,8 @@ function wmguru_sanitize_settings( $input ) {
 
 	$clean = array(
 		'enabled'               => ! empty( $input['enabled'] ),
+		'buffer'                => ! empty( $input['buffer'] ),
+		'social'                => isset( $input['social'] ) && 'original' === $input['social'] ? 'original' : 'watermarked',
 		'remove_data_uninstall' => ! empty( $input['remove_data_uninstall'] ),
 		'min_width'             => min( 10000, max( 0, (int) ( $input['min_width'] ?? $defaults['min_width'] ) ) ),
 		'min_height'            => min( 10000, max( 0, (int) ( $input['min_height'] ?? $defaults['min_height'] ) ) ),

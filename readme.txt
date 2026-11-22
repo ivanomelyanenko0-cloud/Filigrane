@@ -3,7 +3,7 @@ Contributors: lukystile
 Tags: watermark, image watermark, photo watermark, protect images, copyright
 Requires at least: 6.3
 Tested up to: 7.1
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,11 @@ With this design:
 * Works with GD or Imagick (chosen automatically); EXIF orientation is respected.
 * Site Health checks for the image library, cache folder and delivery.
 * Automatic fallback for hosts that do not pass missing image URLs to WordPress.
+* Whole-page mode for page builders (Elementor, Divi, Bricks, Beaver Builder), sliders and themes: images anywhere on the page, including lazy-loaded and CSS background images.
+* WebP/AVIF plugins (WebP Express, EWWW, ShortPixel, Imagify): their `<picture>` copies are switched to the watermarked image, so nobody gets an unmarked copy.
+* Social previews: choose whether Open Graph, Twitter cards and Schema (Yoast, Rank Math, SEOPress, All in One SEO) show the watermarked or the original image.
+* Cache warm-up from the settings screen, plus WP-CLI: `wp filigrane cache stats`, `wp filigrane cache purge`, `wp filigrane cache warm --all`.
+* A compatibility list on the settings screen for the image, CDN, builder and SEO plugins found on your site.
 
 Need several watermark profiles, unlimited layers, or rules that pick a watermark by post type, category or file type? They are in **[Filigrane Pro](https://cognitolab.net/products/filigrane)**, a separate, optional add-on. Everything described above works fully in the free plugin, with no restrictions or nag screens.
 
@@ -77,7 +82,23 @@ Some hosts answer 404 for missing image files without asking WordPress. Filigran
 
 = Will my page-builder images be watermarked? =
 
-Images output through WordPress image functions and post content are. Page builders that print raw upload URLs from their own data may not be; support for those is planned.
+Images output through WordPress image functions and post content always are. For builders that print image URLs from their own data, turn on **Whole-page mode** under Delivery & cache: every image on the page is then watermarked, including lazy-loaded images and CSS background images in inline styles.
+
+= Does it work with WebP Express, EWWW, ShortPixel or Imagify? =
+
+Yes. When those plugins wrap images in a `<picture>` tag with a WebP or AVIF copy, Filigrane points that copy at the watermarked image, so visitors whose browser picks the WebP never get an unmarked file. The settings screen lists the plugins it found and how it works with each.
+
+= Does it work with a CDN? =
+
+A pull CDN (WP Rocket, CDN Enabler, W3 Total Cache, LiteSpeed, Bunny) fetches the watermarked copies from your site like any other file. After changing the watermark, clear the CDN cache too. Jetpack's Site Accelerator fetches images from your Media Library itself and can bypass the watermark; turn off its image option if you see unmarked images.
+
+= Which image do Facebook and other social sites show? =
+
+The watermarked one, by default. Under **Social previews** you can switch Open Graph, Twitter card and Schema images back to the original file, whichever SEO plugin or theme prints them.
+
+= Can I create the watermarked copies in advance? =
+
+Yes. **Warm the cache** on the settings screen prepares the 100 newest images; on the command line `wp filigrane cache warm --all` does the whole library, and `wp filigrane cache warm 12 34` only the given attachments. `wp filigrane cache stats` and `wp filigrane cache purge` are there too.
 
 = Which image library do I need? =
 
@@ -95,6 +116,15 @@ GD (with FreeType) or Imagick. Imagick keeps colour profiles and metadata of the
 Bundled fonts: Noto Sans and Noto Serif, © The Noto Project Authors, licensed under the SIL Open Font License 1.1 (see `fonts/OFL.txt`).
 
 == Changelog ==
+
+= 1.1.0 =
+* New: Whole-page mode for page builders, sliders and themes, covering lazy-loaded (data-src) and CSS background images.
+* New: WebP/AVIF `<picture>` sources from WebP Express, EWWW, ShortPixel and Imagify are switched to the watermarked image.
+* New: Social previews setting: watermarked or original image in Open Graph, Twitter cards and Schema.
+* New: Warm the cache from the settings screen; WP-CLI commands `wp filigrane cache stats|purge|warm`.
+* New: Compatibility list for the image, CDN, builder and SEO plugins active on your site.
+* Fix: With query-string URLs (the fallback for hosts that don't pass missing images to WordPress), sub-size image URLs from `wp_get_attachment_image_src()` (featured images, WooCommerce) pointed at the site root and failed to load.
+* Fix: Query-string watermark URLs saved in content are turned back into the original when watermarking does not apply.
 
 = 1.0.0 =
 * First public release.

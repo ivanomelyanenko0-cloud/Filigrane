@@ -145,3 +145,33 @@
 		position: static;
 	}
 }
+
+/* Compatibility list (includes/compat.php). */
+.wmguru-compat {
+	margin: 0;
+}
+
+.wmguru-compat li {
+	margin: 0 0 10px;
+	padding-left: 10px;
+	border-left: 3px solid #00a32a;
+}
+
+.wmguru-compat li.wmguru-compat--warning {
+	border-left-color: #dba617;
+}
+
+.wmguru-badge {
+	display: inline-block;
+	margin-left: 4px;
+	padding: 0 6px;
+	border-radius: 2px;
+	font-size: 11px;
+	background: #edfaef;
+	color: #00602b;
+}
+
+.wmguru-badge--warn {
+	background: #fcf9e8;
+	color: #6b4f00;
+}

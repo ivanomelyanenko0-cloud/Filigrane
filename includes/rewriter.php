@@ -81,7 +81,7 @@ function wmguru_rewrite_url( $url, $attachment_id = 0 ) {
 	$rewritten = wmguru_build_url( wmguru_profile_key( $profile ), $rel );
 
 	// Keep a query string (e.g. ?ver=) that the original URL carried.
-	$query = wp_parse_url( $url, PHP_URL_QUERY );
+	$query = wp_parse_url( remove_query_arg( array( 'wmguru_k', 'wmguru_f', 'wmguru_s' ), html_entity_decode( $url, ENT_QUOTES, 'UTF-8' ) ), PHP_URL_QUERY );
 	if ( $query && false === strpos( $rewritten, '?' ) ) {
 		$rewritten .= '?' . $query;
 	}
@@ -106,12 +106,55 @@ add_filter( 'wp_get_attachment_url', 'wmguru_filter_attachment_url', 20, 2 );
  */
 function wmguru_filter_image_src( $image, $attachment_id ) {
 	if ( is_array( $image ) && ! empty( $image[0] ) ) {
-		$image[0] = wmguru_rewrite_url( $image[0], $attachment_id );
+		$image[0] = wmguru_rewrite_url( wmguru_repair_size_url( $image[0], $attachment_id ), $attachment_id );
 	}
 
 	return $image;
 }
 add_filter( 'wp_get_attachment_image_src', 'wmguru_filter_image_src', 20, 2 );
+
+/**
+ * Core builds a sub-size URL from wp_get_attachment_url() by swapping its
+ * last path segment for the size's file name. With query-string cache URLs
+ * that segment is the query string, so the result is the home URL plus a
+ * file name ("https://example.com/photo-1024x683.jpg"). Map such a URL back
+ * to the real file in the attachment's folder.
+ *
+ * @param string $url           URL core produced.
+ * @param int    $attachment_id Attachment id.
+ * @return string
+ */
+function wmguru_repair_size_url( $url, $attachment_id ) {
+	if ( ! $attachment_id || false !== wmguru_url_to_rel( wmguru_original_url( $url ) ) ) {
+		return $url;
+	}
+	$uploads = wmguru_uploads();
+	$file    = (string) get_post_meta( $attachment_id, '_wp_attached_file', true );
+	$name    = wp_basename( (string) wp_parse_url( $url, PHP_URL_PATH ) );
+	if ( ! $uploads || '' === $file || '' === $name || 0 !== strpos( wmguru_strip_scheme( $url ), wmguru_strip_scheme( home_url( '/' ) ) ) ) {
+		return $url;
+	}
+	$folder = dirname( $file );
+	$rel    = ( '.' === $folder ? '' : $folder . '/' ) . $name;
+
+	return file_exists( $uploads['basedir'] . '/' . $rel ) ? $uploads['baseurl'] . '/' . wmguru_encode_rel( $rel ) : $url;
+}
+
+/**
+ * The same repair for image_get_intermediate_size(), which builds its URL
+ * from the directory of wp_get_attachment_url().
+ *
+ * @param array $data          Size data with 'url'.
+ * @param int   $attachment_id Attachment id.
+ * @return array
+ */
+function wmguru_filter_intermediate_size( $data, $attachment_id ) {
+	if ( is_array( $data ) && ! empty( $data['url'] ) ) {
+		$data['url'] = wmguru_rewrite_url( wmguru_repair_size_url( $data['url'], $attachment_id ), $attachment_id );
+	}
+	return $data;
+}
+add_filter( 'image_get_intermediate_size', 'wmguru_filter_intermediate_size', 20, 2 );
 
 /**
  * @param array|false $sources       srcset sources.

@@ -113,6 +113,22 @@ function wmguru_purge_attachment( $attachment_id, $metadata = null ) {
 		return;
 	}
 
+	foreach ( wmguru_attachment_rels( $attachment_id, $metadata ) as $rel ) {
+		foreach ( $key_dirs as $key_dir ) {
+			wp_delete_file( $key_dir . '/' . $rel );
+		}
+	}
+}
+
+/**
+ * Every file of an attachment (main file, original and sub-sizes), as
+ * paths relative to uploads.
+ *
+ * @param int        $attachment_id Attachment id.
+ * @param array|null $metadata      Extra metadata to read file names from.
+ * @return string[]
+ */
+function wmguru_attachment_rels( $attachment_id, $metadata = null ) {
 	$rels = array();
 	$file = get_post_meta( $attachment_id, '_wp_attached_file', true );
 	if ( $file ) {
@@ -142,11 +158,108 @@ function wmguru_purge_attachment( $attachment_id, $metadata = null ) {
 		}
 	}
 
-	foreach ( array_unique( $rels ) as $rel ) {
-		foreach ( $key_dirs as $key_dir ) {
-			wp_delete_file( $key_dir . '/' . $rel );
+	return array_values( array_unique( $rels ) );
+}
+
+/**
+ * Generates the watermarked copies of one attachment ahead of the first
+ * visitor, for every size that gets a watermark.
+ *
+ * @param int $attachment_id Attachment id.
+ * @return array{generated:int,cached:int,skipped:int,failed:int}
+ */
+function wmguru_warm_attachment( $attachment_id ) {
+	$counts  = array(
+		'generated' => 0,
+		'cached'    => 0,
+		'skipped'   => 0,
+		'failed'    => 0,
+	);
+	$uploads = wmguru_uploads();
+	if ( ! $uploads || ! wmguru_is_enabled() ) {
+		return $counts;
+	}
+	$mime = get_post_mime_type( $attachment_id );
+
+	foreach ( wmguru_attachment_rels( $attachment_id ) as $rel ) {
+		$src     = $uploads['basedir'] . '/' . $rel;
+		$profile = is_file( $src ) ? wmguru_watermark_profile_for( $attachment_id, $rel ) : null;
+		if ( ! $profile ) {
+			++$counts['skipped'];
+			continue;
+		}
+		$dest = wmguru_cache_file_path( wmguru_profile_key( $profile ), $rel );
+		if ( file_exists( $dest ) && filemtime( $dest ) >= filemtime( $src ) ) {
+			++$counts['cached'];
+			continue;
+		}
+		$result = wmguru_generate( $src, $dest, $profile, $mime, $attachment_id, $rel );
+		if ( is_wp_error( $result ) ) {
+			wmguru_log_error( $rel . ': ' . $result->get_error_message() );
+			++$counts['failed'];
+		} else {
+			++$counts['generated'];
 		}
 	}
+
+	return $counts;
+}
+
+/**
+ * Images to warm, newest first.
+ *
+ * @param int   $limit  How many.
+ * @param int   $offset Skip this many.
+ * @param int[] $ids    Only these attachments, when given.
+ * @return int[]
+ */
+function wmguru_warm_candidates( $limit, $offset = 0, $ids = array() ) {
+	$args = array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'inherit',
+		'post_mime_type' => array_keys( wmguru_get_file_handlers() ),
+		'posts_per_page' => $limit,
+		'offset'         => $offset,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+	);
+	if ( $ids ) {
+		$args['post__in'] = array_map( 'absint', $ids );
+		$args['orderby']  = 'post__in';
+	}
+	return array_map( 'intval', get_posts( $args ) );
+}
+
+/**
+ * Warms images newest first until the time budget runs out.
+ *
+ * @param int $limit   Most images to look at.
+ * @param int $seconds Time budget.
+ * @return array{images:int,generated:int,cached:int,skipped:int,failed:int,done:bool}
+ */
+function wmguru_warm_recent( $limit = 100, $seconds = 20 ) {
+	$start  = microtime( true );
+	$totals = array(
+		'images'    => 0,
+		'generated' => 0,
+		'cached'    => 0,
+		'skipped'   => 0,
+		'failed'    => 0,
+		'done'      => true,
+	);
+	foreach ( wmguru_warm_candidates( $limit ) as $id ) {
+		if ( microtime( true ) - $start > $seconds ) {
+			$totals['done'] = false;
+			break;
+		}
+		foreach ( wmguru_warm_attachment( $id ) as $k => $v ) {
+			$totals[ $k ] += $v;
+		}
+		++$totals['images'];
+	}
+	return $totals;
 }
 
 /**

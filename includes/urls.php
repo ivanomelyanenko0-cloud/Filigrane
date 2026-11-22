@@ -69,7 +69,7 @@ function wmguru_url_to_rel( $url ) {
 }
 
 /**
- * Split a pretty cache URL into key and relative path.
+ * Split a cache URL (pretty or query mode) into key and relative path.
  *
  * @param string $url URL.
  * @return array|false array( key, rel ) or false.
@@ -77,6 +77,19 @@ function wmguru_url_to_rel( $url ) {
 function wmguru_cache_url_to_parts( $url ) {
 	$uploads = wmguru_uploads();
 	if ( ! $uploads || ! is_string( $url ) ) {
+		return false;
+	}
+
+	// Query-mode URL: ?wmguru_k=&wmguru_f=&wmguru_s= on the home URL, with a valid signature.
+	if ( false !== strpos( $url, 'wmguru_k=' ) ) {
+		$query = (string) wp_parse_url( html_entity_decode( $url, ENT_QUOTES, 'UTF-8' ), PHP_URL_QUERY );
+		parse_str( $query, $args );
+		if ( isset( $args['wmguru_k'], $args['wmguru_f'], $args['wmguru_s'] ) && is_string( $args['wmguru_k'] ) && is_string( $args['wmguru_f'] ) && is_string( $args['wmguru_s'] ) ) {
+			$rel = wmguru_b64url_decode( $args['wmguru_f'] );
+			if ( hash_equals( wmguru_sign( $args['wmguru_k'], $rel ), $args['wmguru_s'] ) ) {
+				return array( $args['wmguru_k'], $rel );
+			}
+		}
 		return false;
 	}
 

@@ -460,6 +460,21 @@ function wmguru_render_settings_page() {
 		) . ' <button type="button" class="button" data-wmguru-action="wmguru_purge" data-reload="1">' . esc_html__( 'Clear cache', 'filigrane' ) . '</button> <span class="wmguru-action-result" aria-live="polite"></span>',
 		__( 'Clearing the cache is always safe: copies are regenerated on demand.', 'filigrane' )
 	);
+	wmguru_row(
+		__( 'Warm the cache', 'filigrane' ),
+		'<button type="button" class="button" data-wmguru-action="wmguru_warm">' . esc_html__( 'Prepare the 100 newest images', 'filigrane' ) . '</button> <span class="wmguru-action-result" aria-live="polite"></span>',
+		__( 'Makes the watermarked copies now, so the first visitor to see an image doesn\'t wait for it. Runs for up to 20 seconds; click again to continue. Over WP-CLI: wp filigrane cache warm --all', 'filigrane' )
+	);
+	wmguru_row(
+		__( 'Whole-page mode', 'filigrane' ),
+		'<label><input type="checkbox" name="' . esc_attr( WMGURU_OPTION ) . '[buffer]" value="1" ' . checked( ! empty( $settings['buffer'] ), true, false ) . ' /> ' . esc_html__( 'Watermark images anywhere on the page, not only in post content', 'filigrane' ) . '</label>',
+		__( 'For page builders (Elementor, Divi, Bricks, Beaver Builder), sliders and themes that print images themselves, including background images and lazy-loaded images. It processes each page once more before it is sent, so leave it off if your images are all in posts and pages.', 'filigrane' )
+	);
+	wmguru_row(
+		__( 'Social previews', 'filigrane' ),
+		'<select name="' . esc_attr( WMGURU_OPTION ) . '[social]"><option value="watermarked" ' . selected( wmguru_social_mode(), 'watermarked', false ) . '>' . esc_html__( 'Watermarked image', 'filigrane' ) . '</option><option value="original" ' . selected( wmguru_social_mode(), 'original', false ) . '>' . esc_html__( 'Original image', 'filigrane' ) . '</option></select>',
+		__( 'The image Facebook, X, LinkedIn and search results show for a shared page (Open Graph, Twitter cards and Schema from Yoast, Rank Math, SEOPress, All in One SEO or your theme).', 'filigrane' )
+	);
 	if ( is_array( $log ) && $log ) {
 		$items = '';
 		foreach ( array_reverse( array_slice( $log, -5 ) ) as $entry ) {
@@ -468,6 +483,15 @@ function wmguru_render_settings_page() {
 		wmguru_row( __( 'Recent problems', 'filigrane' ), '<ul class="wmguru-log">' . $items . '</ul>' );
 	}
 	echo '</table></div>';
+
+	$compat = wmguru_compatibility_report();
+	if ( $compat ) {
+		echo '<div class="wmguru-card"><h2>' . esc_html__( 'Works with your other plugins', 'filigrane' ) . '</h2><ul class="wmguru-compat">';
+		foreach ( $compat as $item ) {
+			echo '<li class="wmguru-compat--' . esc_attr( $item['status'] ) . '"><strong>' . esc_html( $item['name'] ) . '</strong> ' . ( 'ok' === $item['status'] ? '<span class="wmguru-badge">' . esc_html__( 'OK', 'filigrane' ) . '</span>' : '<span class="wmguru-badge wmguru-badge--warn">' . esc_html__( 'Check', 'filigrane' ) . '</span>' ) . '<br />' . esc_html( $item['text'] ) . '</li>';
+		}
+		echo '</ul></div>';
+	}
 
 	submit_button();
 	echo '</form>';
@@ -613,3 +637,28 @@ function wmguru_ajax_purge() {
 	wp_send_json_success( array( 'message' => __( 'Cache cleared.', 'filigrane' ) ) );
 }
 add_action( 'wp_ajax_wmguru_purge', 'wmguru_ajax_purge' );
+
+function wmguru_ajax_warm() {
+	wmguru_ajax_guard();
+
+	if ( ! wmguru_is_enabled() ) {
+		wp_send_json_error( array( 'message' => __( 'Turn watermarking on and save first.', 'filigrane' ) ) );
+	}
+	$totals  = wmguru_warm_recent( 100, 20 );
+	$message = sprintf(
+		/* translators: 1: images checked, 2: copies made, 3: already cached. */
+		_n( '%1$d image checked: %2$d copies made, %3$d were ready.', '%1$d images checked: %2$d copies made, %3$d were ready.', $totals['images'], 'filigrane' ),
+		$totals['images'],
+		$totals['generated'],
+		$totals['cached']
+	);
+	if ( $totals['failed'] ) {
+		/* translators: %d: number of failures. */
+		$message .= ' ' . sprintf( _n( '%d failed (see Recent problems).', '%d failed (see Recent problems).', $totals['failed'], 'filigrane' ), $totals['failed'] );
+	}
+	if ( ! $totals['done'] ) {
+		$message .= ' ' . __( 'Time is up for this round: click again to continue.', 'filigrane' );
+	}
+	wp_send_json_success( array( 'message' => $message ) );
+}
+add_action( 'wp_ajax_wmguru_warm', 'wmguru_ajax_warm' );

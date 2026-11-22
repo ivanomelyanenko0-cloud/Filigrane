@@ -2,24 +2,20 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Filigrane 1.0.0\n"
+"Project-Id-Version: Filigrane – Text & Logo Image Watermark, Originals Untouched 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/filigrane\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-21T01:40:20+00:00\n"
+"POT-Creation-Date: 2026-11-22T03:30:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: filigrane\n"
 
 #. Plugin Name of the plugin
-#: includes/admin.php:12
-#: includes/admin.php:13
-#: includes/admin.php:283
-#: includes/site-health.php:40
-msgid "Filigrane"
+msgid "Filigrane – Text & Logo Image Watermark, Originals Untouched"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -36,6 +32,13 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://cognitolab.net"
+msgstr ""
+
+#: includes/admin.php:12
+#: includes/admin.php:13
+#: includes/admin.php:337
+#: includes/site-health.php:40
+msgid "Filigrane"
 msgstr ""
 
 #: includes/admin.php:40
@@ -67,307 +70,382 @@ msgid "The request failed."
 msgstr ""
 
 #: includes/admin.php:70
-#: includes/admin.php:424
+#: includes/admin.php:502
 msgid "Built-in sample image"
 msgstr ""
 
-#: includes/admin.php:138
+#: includes/admin.php:192
 msgid "Text size"
 msgstr ""
 
-#: includes/admin.php:138
+#: includes/admin.php:192
 msgid "Logo width"
 msgstr ""
 
-#: includes/admin.php:147
+#: includes/admin.php:201
 msgid "of the image width"
 msgstr ""
 
-#: includes/admin.php:148
+#: includes/admin.php:202
 msgid "min"
 msgstr ""
 
-#: includes/admin.php:155
+#: includes/admin.php:209
 msgid "max"
 msgstr ""
 
-#: includes/admin.php:163
+#: includes/admin.php:217
 msgid "The watermark scales with each image, within the min/max limits."
 msgstr ""
 
-#: includes/admin.php:168
+#: includes/admin.php:222
 msgid "Position"
 msgstr ""
 
-#: includes/admin.php:171
+#: includes/admin.php:225
 msgid "Margin"
 msgstr ""
 
-#: includes/admin.php:180
+#: includes/admin.php:234
 msgid "of the shorter side"
 msgstr ""
 
-#: includes/admin.php:183
+#: includes/admin.php:237
 msgid "Opacity"
 msgstr ""
 
-#: includes/admin.php:194
+#: includes/admin.php:248
 msgid "Rotation"
 msgstr ""
 
-#: includes/admin.php:202
+#: includes/admin.php:256
 msgid "clockwise"
 msgstr ""
 
-#: includes/admin.php:214
+#: includes/admin.php:268
 msgid "Text watermark"
 msgstr ""
 
-#: includes/admin.php:214
+#: includes/admin.php:268
 msgid "Image watermark (logo)"
 msgstr ""
 
-#: includes/admin.php:219
+#: includes/admin.php:273
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin.php:220
+#: includes/admin.php:274
 msgid "Draw this layer"
 msgstr ""
 
-#: includes/admin.php:225
+#: includes/admin.php:279
 msgid "Text"
 msgstr ""
 
-#: includes/admin.php:227
+#: includes/admin.php:281
 msgid "Tokens: {site} site title, {year} current year, {url} site domain."
 msgstr ""
 
-#: includes/admin.php:235
+#: includes/admin.php:289
 msgid "Font"
 msgstr ""
 
-#: includes/admin.php:237
+#: includes/admin.php:291
 msgid "Bundled fonts cover Latin, Cyrillic and Greek."
 msgstr ""
 
-#: includes/admin.php:240
+#: includes/admin.php:294
 msgid "Color"
 msgstr ""
 
-#: includes/admin.php:249
+#: includes/admin.php:303
 msgid "Choose image"
 msgstr ""
 
-#: includes/admin.php:250
+#: includes/admin.php:304
 msgid "Remove"
 msgstr ""
 
-#: includes/admin.php:252
+#: includes/admin.php:306
 msgid "Logo"
 msgstr ""
 
-#: includes/admin.php:252
+#: includes/admin.php:306
 msgid "A PNG with a transparent background works best."
 msgstr ""
 
-#: includes/admin.php:287
+#: includes/admin.php:341
 msgid "Watermarks are switched off. Set up your watermark below, check the preview, then enable it under “General”. Your original files are never modified either way."
 msgstr ""
 
-#: includes/admin.php:294
+#: includes/admin.php:348
 msgid "General"
 msgstr ""
 
-#: includes/admin.php:296
+#: includes/admin.php:350
 msgid "Watermarks"
 msgstr ""
 
-#: includes/admin.php:297
+#: includes/admin.php:351
 msgid "Show watermarked images on the front end"
 msgstr ""
 
-#: includes/admin.php:298
+#: includes/admin.php:352
 msgid "Copies are generated on first view and cached. Turn this off at any time and visitors get the untouched originals immediately."
 msgstr ""
 
-#: includes/admin.php:305
+#: includes/admin.php:359
 msgid "Apply to sizes"
 msgstr ""
 
-#: includes/admin.php:305
+#: includes/admin.php:359
 msgid "“Full size” also covers scaled and original uploads."
 msgstr ""
 
-#: includes/admin.php:308
+#: includes/admin.php:362
 msgid "Skip small images"
 msgstr ""
 
-#: includes/admin.php:309
+#: includes/admin.php:363
 msgid "narrower than"
 msgstr ""
 
-#: includes/admin.php:316
+#: includes/admin.php:370
 msgid "or shorter than"
 msgstr ""
 
-#: includes/admin.php:326
+#: includes/admin.php:380
 msgid "Output quality"
 msgstr ""
 
-#: includes/admin.php:334
+#: includes/admin.php:388
 msgid "for JPEG, WebP and AVIF copies (originals are not re-encoded)"
 msgstr ""
 
-#: includes/admin.php:338
+#: includes/admin.php:392
 msgid "Automatic (Imagick if available, otherwise GD)"
 msgstr ""
 
-#: includes/admin.php:339
+#: includes/admin.php:393
 msgid "Imagick"
 msgstr ""
 
-#: includes/admin.php:340
+#: includes/admin.php:394
 msgid "GD"
 msgstr ""
 
-#: includes/admin.php:355
+#: includes/admin.php:409
 msgid "not supported"
 msgstr ""
 
-#: includes/admin.php:358
+#: includes/admin.php:412
 msgid "Image library"
 msgstr ""
 
-#: includes/admin.php:363
+#: includes/admin.php:417
 msgid "On uninstall"
 msgstr ""
 
-#: includes/admin.php:364
+#: includes/admin.php:418
 msgid "Also delete these settings (the cache is always removed)"
 msgstr ""
 
-#: includes/admin.php:373
+#: includes/admin.php:427
 msgid "Automatic"
 msgstr ""
 
-#: includes/admin.php:374
+#: includes/admin.php:428
 msgid "Direct file URLs"
 msgstr ""
 
-#: includes/admin.php:375
+#: includes/admin.php:429
 msgid "Signed query URLs (fallback)"
 msgstr ""
 
-#: includes/admin.php:382
+#: includes/admin.php:436
 msgid "Last test: direct file URLs work."
 msgstr ""
 
 #. translators: %s: error detail
-#: includes/admin.php:385
+#: includes/admin.php:439
 msgid "Last test: direct URLs do not work here (%s). The fallback is used automatically."
 msgstr ""
 
 #. translators: %s: error detail
-#: includes/admin.php:388
+#: includes/admin.php:442
 msgid "Last test could not run (%s). Direct file URLs are assumed."
 msgstr ""
 
-#: includes/admin.php:390
+#: includes/admin.php:444
 msgid "Not tested yet."
 msgstr ""
 
-#: includes/admin.php:393
+#: includes/admin.php:447
 msgid "Delivery & cache"
 msgstr ""
 
-#: includes/admin.php:395
+#: includes/admin.php:449
 msgid "URL mode"
 msgstr ""
 
-#: includes/admin.php:396
+#: includes/admin.php:450
 msgid "Test delivery"
 msgstr ""
 
-#: includes/admin.php:400
+#: includes/admin.php:454
 msgid "Cache"
 msgstr ""
 
 #. translators: 1: number of files, 2: size
-#: includes/admin.php:403
+#: includes/admin.php:457
 msgid "%1$s files, %2$s"
 msgstr ""
 
-#: includes/admin.php:406
+#: includes/admin.php:460
 msgid "Clear cache"
 msgstr ""
 
-#: includes/admin.php:407
+#: includes/admin.php:461
 msgid "Clearing the cache is always safe: copies are regenerated on demand."
 msgstr ""
 
-#: includes/admin.php:414
+#: includes/admin.php:464
+msgid "Warm the cache"
+msgstr ""
+
+#: includes/admin.php:465
+msgid "Prepare the 100 newest images"
+msgstr ""
+
+#: includes/admin.php:466
+msgid "Makes the watermarked copies now, so the first visitor to see an image doesn't wait for it. Runs for up to 20 seconds; click again to continue. Over WP-CLI: wp filigrane cache warm --all"
+msgstr ""
+
+#: includes/admin.php:469
+msgid "Whole-page mode"
+msgstr ""
+
+#: includes/admin.php:470
+msgid "Watermark images anywhere on the page, not only in post content"
+msgstr ""
+
+#: includes/admin.php:471
+msgid "For page builders (Elementor, Divi, Bricks, Beaver Builder), sliders and themes that print images themselves, including background images and lazy-loaded images. It processes each page once more before it is sent, so leave it off if your images are all in posts and pages."
+msgstr ""
+
+#: includes/admin.php:474
+msgid "Social previews"
+msgstr ""
+
+#: includes/admin.php:475
+msgid "Watermarked image"
+msgstr ""
+
+#: includes/admin.php:475
+msgid "Original image"
+msgstr ""
+
+#: includes/admin.php:476
+msgid "The image Facebook, X, LinkedIn and search results show for a shared page (Open Graph, Twitter cards and Schema from Yoast, Rank Math, SEOPress, All in One SEO or your theme)."
+msgstr ""
+
+#: includes/admin.php:483
 msgid "Recent problems"
 msgstr ""
 
-#: includes/admin.php:422
+#: includes/admin.php:489
+msgid "Works with your other plugins"
+msgstr ""
+
+#: includes/admin.php:491
+msgid "OK"
+msgstr ""
+
+#: includes/admin.php:491
+msgid "Check"
+msgstr ""
+
+#: includes/admin.php:500
 msgid "Live preview"
 msgstr ""
 
-#: includes/admin.php:425
+#: includes/admin.php:503
 msgid "Use one of my images"
 msgstr ""
 
-#: includes/admin.php:426
+#: includes/admin.php:504
 msgid "Back to sample"
 msgstr ""
 
-#: includes/admin.php:427
+#: includes/admin.php:505
 msgid "The preview is rendered by the same engine that creates the real copies, using your unsaved settings."
 msgstr ""
 
-#: includes/admin.php:431
+#: includes/admin.php:509
 msgid "Need more?"
 msgstr ""
 
-#: includes/admin.php:431
+#: includes/admin.php:509
 msgid "Multiple watermark profiles, unlimited layers and rules that pick a profile by post type, category or file type are available in Filigrane Pro, a separate optional add-on."
 msgstr ""
 
-#: includes/admin.php:432
+#: includes/admin.php:510
 msgid "Learn about Pro"
 msgstr ""
 
-#: includes/admin.php:478
+#: includes/admin.php:556
 msgid "Animated images are shown and served unchanged."
 msgstr ""
 
-#: includes/admin.php:485
+#: includes/admin.php:563
 msgid "Nothing to draw yet: enable a layer and give it content."
 msgstr ""
 
-#: includes/admin.php:492
+#: includes/admin.php:570
 msgid "Could not read the rendered preview."
 msgstr ""
 
-#: includes/admin.php:507
+#: includes/admin.php:585
 msgid "You are not allowed to do this."
 msgstr ""
 
-#: includes/admin.php:545
+#: includes/admin.php:623
 msgid "Direct file URLs work."
 msgstr ""
 
-#: includes/admin.php:548
+#: includes/admin.php:626
 msgid "Direct URLs do not work here; the fallback will be used."
 msgstr ""
 
-#: includes/admin.php:551
+#: includes/admin.php:629
 msgid "The test could not run."
 msgstr ""
 
-#: includes/admin.php:559
+#: includes/admin.php:637
+#: includes/cli.php:58
 msgid "Cache cleared."
+msgstr ""
+
+#: includes/admin.php:645
+msgid "Turn watermarking on and save first."
+msgstr ""
+
+#. translators: 1: images checked, 2: copies made, 3: already cached.
+#: includes/admin.php:650
+msgid "%1$d image checked: %2$d copies made, %3$d were ready."
+msgid_plural "%1$d images checked: %2$d copies made, %3$d were ready."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of failures.
+#: includes/admin.php:657
+msgid "%d failed (see Recent problems)."
+msgid_plural "%d failed (see Recent problems)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin.php:660
+msgid "Time is up for this round: click again to continue."
 msgstr ""
 
 #: includes/attachments.php:81
@@ -376,6 +454,52 @@ msgstr ""
 
 #: includes/attachments.php:83
 msgid "Do not watermark this image"
+msgstr ""
+
+#. translators: %d: number of attachments.
+#: includes/cli.php:65
+msgid "Cleared the cached copies of %d image."
+msgid_plural "Cleared the cached copies of %d images."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/cli.php:90
+msgid "Watermarking is turned off in Settings > Filigrane, so there is nothing to warm."
+msgstr ""
+
+#. translators: 1: images, 2: files generated, 3: already cached, 4: sizes that get no watermark, 5: failures.
+#: includes/cli.php:123
+msgid "%1$d image: %2$d copies generated, %3$d already cached, %4$d sizes without a watermark, %5$d failed."
+msgid_plural "%1$d images: %2$d copies generated, %3$d already cached, %4$d sizes without a watermark, %5$d failed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/compat.php:361
+msgid "WebP/AVIF copies in <picture> tags are switched to the watermarked image, so nobody gets an unmarked copy. If the plugin serves WebP by rewriting URLs on the server instead (no <picture> tag), visitors still get the watermarked URL, because Filigrane's copies live outside the folders it rewrites."
+msgstr ""
+
+#: includes/compat.php:368
+msgid "A pull CDN fetches the watermarked copies from your site like any other file. After changing the watermark, clear the CDN cache too, or it keeps serving the old copies until they expire."
+msgstr ""
+
+#: includes/compat.php:375
+msgid "Jetpack's image CDN (Site Accelerator) fetches images from your Media Library itself and can bypass the watermark. Turn off \"Speed up image load times\" in Jetpack if images show up without a watermark."
+msgstr ""
+
+#: includes/compat.php:383
+msgid "Whole-page mode is on, so images the builder prints outside the post content get the watermark too."
+msgstr ""
+
+#: includes/compat.php:384
+msgid "This builder prints many images outside the post content. Turn on whole-page mode below so they get the watermark too."
+msgstr ""
+
+#: includes/compat.php:392
+msgid "Social previews (Open Graph, Twitter cards, Schema) use the original images, as set below."
+msgstr ""
+
+#: includes/compat.php:393
+msgid "Social previews (Open Graph, Twitter cards, Schema) use the watermarked images. You can switch them to the originals below."
 msgstr ""
 
 #: includes/delivery.php:187
@@ -492,7 +616,7 @@ msgstr ""
 msgid "Bottom right"
 msgstr ""
 
-#: includes/settings.php:145
+#: includes/settings.php:147
 msgid "Full size"
 msgstr ""
 
